@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>John Romar Francisco</title>
+<meta name="description" content="Portfolio of John Romar Z. Francisco, 4th-year IT student specializing in web and mobile development.">
+<style>:root{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one narrow column; mono labels in a left rail, content on the right; sticky text nav.
+   Single bold move: the hero name sits in an object-detection bounding box with a confidence tag. */
+:root {
+  --bg: #FBFBFC;
+  --fg: #14171C;
+  --muted: #5F6672;
+  --line: #E3E6EA;
+  --accent: #0B7A5E;
+  --accent-soft: #E6F3EE;
+  --tile: #FFFFFF;
+  --font-body: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F1215; --fg: #E8EBEE; --muted: #9099A5; --line: #232930;
+    --accent: #5FD8AC; --accent-soft: #14241F; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F1215; --fg: #E8EBEE; --muted: #9099A5; --line: #232930;
+  --accent: #5FD8AC; --accent-soft: #14241F; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  padding-block: 0 72px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 800px; margin: 0 auto; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+/* top bar */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--bg); border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap;
+  padding-block: 14px;
+}
+.top nav { display: flex; gap: 6px 18px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .04em; }
+.top nav a { text-decoration: none; color: var(--muted); padding: 4px 0; }
+.top nav a:hover, .top nav a.on { color: var(--fg); }
+.top nav a.on { box-shadow: 0 1px 0 var(--accent); }
+.mark { font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .04em; color: var(--fg); text-decoration: none; }
+.tools { display: flex; gap: 8px; align-items: center; }
+.pill {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: .04em; text-decoration: none;
+  background: none; color: var(--muted); border: 1px solid var(--line);
+  padding: 4px 10px; border-radius: 3px; cursor: pointer; line-height: 1.5;
+}
+.pill:hover { color: var(--fg); border-color: var(--muted); }
+
+/* hero */
+.hero { padding-block: 80px 72px; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 40px; }
+.hero-text { flex: 1 1 380px; min-width: 0; }
+.detect { position: relative; display: inline-block; border: 1.5px solid var(--accent); padding: 22px 26px; max-width: 100%; }
+.detect .tag {
+  position: absolute; left: -1.5px; top: 0; transform: translateY(-100%);
+  background: var(--accent); color: var(--bg);
+  font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .03em;
+  padding: 2px 8px; white-space: nowrap;
+}
+h1 { margin: 0; font-size: clamp(2rem, 7vw, 3.6rem); line-height: 1.05; letter-spacing: -.025em; font-weight: 700; text-wrap: balance; }
+.role { margin: 28px 0 0; font-size: 1.15rem; max-width: 36ch; text-wrap: balance; }
+.facts { margin: 14px 0 0; padding: 0; list-style: none; font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); letter-spacing: .02em; display: grid; gap: 2px; }
+.cta { margin-top: 30px; display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { display: inline-block; text-decoration: none; font-size: 14.5px; font-weight: 500; padding: 9px 18px; border: 1px solid var(--fg); border-radius: 3px; }
+.btn.solid { background: var(--fg); color: var(--bg); }
+.btn.solid:hover { background: var(--accent); border-color: var(--accent); }
+.btn.ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+.photo { margin: 0; flex: 0 0 auto; width: 176px; max-width: 100%; aspect-ratio: 4 / 5; position: relative; border: 1px solid var(--line); background: var(--accent-soft); overflow: hidden; }
+.photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo .initials { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 2.2rem; letter-spacing: .06em; color: var(--accent); }
+.photo.empty img { display: none; }
+.photo.empty .initials { display: flex; }
+
+/* sections */
+section { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 12px 32px; padding-block: 44px; border-top: 1px solid var(--line); }
+.label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 4px; }
+section p { margin: 0; max-width: 62ch; }
+section p + p { margin-top: 14px; }
+h2 { margin: 0; font-size: 12px; font-weight: 400; font-family: var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 4px; }
+h3 { margin: 0; font-size: 1.1rem; font-weight: 600; letter-spacing: -.01em; }
+.sub { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; font-weight: 400; }
+.block + .block { margin-top: 36px; }
+
+.item-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.when { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); }
+.item ul { margin: 12px 0 0; padding-left: 18px; max-width: 62ch; }
+.item li + li { margin-top: 6px; }
+.item li::marker { color: var(--accent); }
+.item + .item { margin-top: 40px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.chip { font-family: var(--font-mono); font-size: 12px; padding: 2px 9px; border: 1px solid var(--line); border-radius: 3px; color: var(--muted); }
+
+.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 18px; }
+.gallery figure { margin: 0; min-width: 0; }
+.gallery img { width: 100%; height: auto; display: block; border: 1px solid var(--line); }
+.gallery figure.empty { display: none; }
+
+.rows { display: grid; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; padding-block: 11px; border-bottom: 1px solid var(--line); align-items: baseline; }
+.row:first-child { padding-top: 0; }
+.row:last-child { border-bottom: 0; padding-bottom: 0; }
+.row .by { display: block; font-size: 14px; color: var(--muted); }
+.row .yr { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.badges { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; margin-bottom: 28px; }
+.badge { display: block; text-decoration: none; min-width: 0; }
+.badge .tile { background: var(--tile); border: 1px solid var(--line); padding: 10px; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; }
+.badge:hover .tile { border-color: var(--accent); }
+.badge img { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; }
+.badge span { display: block; margin-top: 8px; font-family: var(--font-mono); font-size: 11.5px; line-height: 1.4; color: var(--muted); letter-spacing: .02em; }
+.badge:hover span { color: var(--fg); }
+.hint { font-family: var(--font-mono); font-size: 12px; color: var(--muted); margin: 0 0 14px; }
+.row .by a { color: var(--accent); text-decoration: none; }
+.row .by a:hover { text-decoration: underline; }
+
+.skills { display: grid; gap: 14px; margin: 0; }
+.skills div { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 4px 20px; }
+.skills dt { font-weight: 600; font-size: 14.5px; }
+.skills dd { margin: 0; color: var(--muted); font-size: 15px; }
+
+.webinars { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.webinar { min-width: 0; }
+.webinar .slot { margin: 0 0 14px; aspect-ratio: 4 / 3; max-width: 100%; border: 1px solid var(--line); background: var(--accent-soft); position: relative; overflow: hidden; }
+.webinar .slot a { display: block; width: 100%; height: 100%; }
+.webinar .slot img { width: 100%; height: 100%; object-fit: contain; display: block; background: var(--bg); }
+.webinar .slot .ph { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; text-align: center; padding: 16px; font-family: var(--font-mono); font-size: 12px; letter-spacing: .04em; color: var(--accent); }
+.webinar .slot.empty img, .webinar .slot.empty a { display: none; }
+.webinar .slot.empty .ph { display: flex; }
+.webinar p { font-size: 14.5px; color: var(--muted); margin-top: 4px; }
+
+.email-line { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+.email-line code { font-family: var(--font-mono); font-size: 15px; word-break: break-all; }
+.copy { font-family: var(--font-mono); font-size: 12px; background: none; color: var(--accent); border: 1px solid var(--accent); padding: 3px 10px; border-radius: 3px; cursor: pointer; }
+.copy:hover { background: var(--accent-soft); }
+
+footer { border-top: 1px solid var(--line); padding-top: 24px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+@media (max-width: 640px) {
+  .top { position: static; }
+  section { grid-template-columns: minmax(0, 1fr); padding-block: 34px; gap: 16px; }
+  .skills div { grid-template-columns: minmax(0, 1fr); }
+  .hero { padding-block: 56px 48px; }
+  .detect { padding: 18px; }
+  html { scroll-padding-top: 8px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+
+</head>
+<body>
+<div class="wrap" id="home">
+  <header class="top">
+    <a class="mark" href="#home">jrz.francisco</a>
+    <nav aria-label="Sections" id="nav">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#webinars">Webinars</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <a class="pill" href="Francisco_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      <button class="pill" id="themeBtn" type="button" aria-label="Toggle color theme">theme</button>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="hero-text">
+      <div class="detect">
+        <span class="tag">developer 0.97</span>
+        <h1>John Romar<br>Z. Francisco</h1>
+      </div>
+      <p class="role">4th-year IT student specializing in web and mobile development, with a strong interest in applied AI and computer vision.</p>
+      <ul class="facts">
+        <li>Pasay City, Metro Manila, Philippines</li>
+        <li>9 certifications · Seeking an internship</li>
+      </ul>
+      <div class="cta">
+        <a class="btn solid" href="Francisco_Resume.pdf" target="_blank" rel="noopener">View resume</a>
+        <a class="btn ghost" href="#contact">Email me</a>
+      </div>
+    </div>
+    <figure class="photo" id="photoBox">
+      <img id="photoImg" src="photo.jpg" alt="Portrait of John Romar Francisco" width="176" height="220">
+      <span class="initials" aria-hidden="true">JF</span>
+    </figure>
+  </div>
+
+  <section id="about">
+    <h2>About</h2>
+    <div>
+      <div class="block">
+        <h3 class="sub">Education</h3>
+        <div class="item">
+          <div class="item-head"><h3>FEU Institute of Technology</h3><span class="when">Expected 2027</span></div>
+          <p style="margin-top:4px">BS in Information Technology, specialization in Web and Mobile Application. Manila, Philippines.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3 class="sub">Organizations</h3>
+        <div class="rows">
+          <div class="row"><span>Alliance of Information Technology Students<span class="by">Member</span></span><span class="yr">2024 – present</span></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3 class="sub">Skills</h3>
+        <dl class="skills">
+          <div><dt>Languages</dt><dd>HTML, CSS, Python, JavaScript, PHP, Java, Kotlin, C++</dd></div>
+          <div><dt>AI &amp; computer vision</dt><dd>YOLOv11n, Ultralytics, Python</dd></div>
+          <div><dt>Frameworks</dt><dd>Laravel, CodeIgniter</dd></div>
+          <div><dt>Databases</dt><dd>MySQL, SQL, Supabase</dd></div>
+          <div><dt>Deployment</dt><dd>Railway, cPanel, GitHub Pages</dd></div>
+          <div><dt>Tools</dt><dd>Git, GitHub, Figma, Visual Studio Code, Android Studio</dd></div>
+          <div><dt>Soft skills</dt><dd>Teamwork, Adaptability, Creativity</dd></div>
+        </dl>
+      </div>
+
+      <div class="block">
+        <h3 class="sub">Interests</h3>
+        <p>Applied AI and computer vision, 3D modeling, photography, game development.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div>
+      <article class="item">
+        <div class="item-head"><h3>iSpyWorld</h3><span class="when">Developer</span></div>
+        <p style="margin-top:4px">Mobile learning app aimed at improving literacy.</p>
+        <ul>
+          <li>Developed a mobile learning app aimed at improving literacy.</li>
+          <li>Integrated YOLOv11n object detection (via Ultralytics) and speech coaching as the core learning features.</li>
+        </ul>
+        <div class="chips"><span class="chip">YOLOv11n</span><span class="chip">Ultralytics</span><span class="chip">Python</span><span class="chip">Mobile</span></div>
+        <div class="gallery">
+          <figure><img data-optional src="ispyworld-1.jpg" alt="iSpyWorld screenshot 1"></figure>
+          <figure><img data-optional src="ispyworld-2.jpg" alt="iSpyWorld screenshot 2"></figure>
+          <figure><img data-optional src="ispyworld-3.jpg" alt="iSpyWorld screenshot 3"></figure>
+        </div>
+      </article>
+
+      <article class="item">
+        <div class="item-head"><h3>WasteWatch</h3><span class="when">Developer</span></div>
+        <p style="margin-top:4px">Waste bin monitoring simulation.</p>
+        <ul>
+          <li>Built a C++ console application that simulates waste bin fill levels and triggers alerts when a bin needs collection.</li>
+          <li>Implemented a user interface and reporting feature to log and review bin status.</li>
+        </ul>
+        <div class="chips"><span class="chip">C++</span><span class="chip">Console app</span><span class="chip">Reporting</span></div>
+        <div class="gallery">
+          <figure><img data-optional src="wastewatch-1.jpg" alt="WasteWatch screenshot 1"></figure>
+          <figure><img data-optional src="wastewatch-2.jpg" alt="WasteWatch screenshot 2"></figure>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="certifications">
+    <h2>Certifications</h2>
+    <div>
+      <p class="hint">Click a badge to verify it on Credly.</p>
+      <div class="badges">
+        <a class="badge" href="https://www.credly.com/badges/3352ff16-d0fb-4f2a-80be-c74750287571/public_url" target="_blank" rel="noopener"><div class="tile"><img src="badge-ccna-itn.png" alt="Cisco Networking Academy badge, CCNA: Introduction to Networks"></div><span>CCNA: Introduction to Networks</span></a>
+        <a class="badge" href="https://www.credly.com/badges/0a98e289-9ea5-4df8-aa78-bb196d08976d/public_url" target="_blank" rel="noopener"><div class="tile"><img src="badge-ccst.png" alt="Cisco Certified Support Technician Networking badge"></div><span>Cisco CCST Networking</span></a>
+        <a class="badge" href="https://www.credly.com/badges/6b98f707-2096-4fef-87cb-0eb80e09bc95/public_url" target="_blank" rel="noopener"><div class="tile"><img src="badge-pmi.png" alt="PMI Project Management Ready badge"></div><span>PMI Project Management Ready</span></a>
+        <a class="badge" href="https://www.credly.com/badges/de1c3042-cf16-4aca-aa82-5222b00c32c5/public_url" target="_blank" rel="noopener"><div class="tile"><img src="badge-python.png" alt="IT Specialist Python badge from Pearson"></div><span>IT Specialist: Python</span></a>
+      </div>
+      <div class="rows">
+        <div class="row"><span>CCNA: Introduction to Networks<span class="by">Cisco · <a href="https://www.credly.com/badges/3352ff16-d0fb-4f2a-80be-c74750287571/public_url" target="_blank" rel="noopener">Credly ↗</a></span></span><span class="yr">2026</span></div>
+        <div class="row"><span>PMI Project Management Ready<span class="by">Project Management Institute · <a href="https://www.credly.com/badges/6b98f707-2096-4fef-87cb-0eb80e09bc95/public_url" target="_blank" rel="noopener">Credly ↗</a> · <a href="cert-pmi.pdf" target="_blank" rel="noopener">PDF ↗</a></span></span><span class="yr">2026</span></div>
+        <div class="row"><span>Information Technology Specialist in Python<span class="by">Certiport · <a href="https://www.credly.com/badges/de1c3042-cf16-4aca-aa82-5222b00c32c5/public_url" target="_blank" rel="noopener">Credly ↗</a> · <a href="cert-python.pdf" target="_blank" rel="noopener">PDF ↗</a></span></span><span class="yr">2025</span></div>
+        <div class="row"><span>Cisco Certified Support Technician Networking<span class="by">Cisco, lifetime · <a href="https://www.credly.com/badges/0a98e289-9ea5-4df8-aa78-bb196d08976d/public_url" target="_blank" rel="noopener">Credly ↗</a> · <a href="cert-ccst.pdf" target="_blank" rel="noopener">PDF ↗</a></span></span><span class="yr">2025</span></div>
+        <div class="row"><span>CCNA: Switching, Routing, and Wireless Essentials<span class="by">Cisco</span></span><span class="yr">2025</span></div>
+        <div class="row"><span>NDG Linux Essentials<span class="by">Cisco</span></span><span class="yr">2025</span></div>
+        <div class="row"><span>Information Technology Specialist in Databases<span class="by">Certiport</span></span><span class="yr">2025</span></div>
+        <div class="row"><span>CCNA: Enterprise Networking, Security, and Automation<span class="by">Cisco</span></span><span class="yr">2025</span></div>
+        <div class="row"><span>DevNet Associate<span class="by">Cisco</span></span><span class="yr">2025</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="webinars">
+    <h2>Webinars</h2>
+    <div>
+      <p class="hint">Click a certificate to view it full size.</p>
+    <div class="webinars">
+      <article class="webinar">
+        <figure class="slot"><a href="webinar-fintech.jpg" target="_blank" rel="noopener" aria-label="Open certificate full size"><img data-slot src="webinar-fintech.jpg" alt="Certificate of participation, Cybersecurity in FinTech webinar"></a><span class="ph">Certificate coming soon</span></figure>
+        <h3>Cybersecurity in FinTech</h3>
+        <p>Appkademiya · Oct 25, 2026 · Online</p>
+      </article>
+      <article class="webinar">
+        <figure class="slot"><a href="webinar-ticap-zoom.jpg" target="_blank" rel="noopener" aria-label="Open certificate full size"><img data-slot src="webinar-ticap-zoom.jpg" alt="Certificate of appreciation, TICaP 21"></a><span class="ph">Certificate coming soon</span></figure>
+        <h3>TICaP 21: To the Future and Beyond</h3>
+        <p>FEU Institute of Technology · Oct 17, 2026 · Zoom · Certificate of appreciation</p>
+      </article>
+      <article class="webinar">
+        <figure class="slot"><a href="webinar-ticap-onsite.jpg" target="_blank" rel="noopener" aria-label="Open certificate full size"><img data-slot src="webinar-ticap-onsite.jpg" alt="Certificate of participation, TICaP 21"></a><span class="ph">Certificate coming soon</span></figure>
+        <h3>TICaP 21: To the Future and Beyond</h3>
+        <p>FEU Institute of Technology · Oct 3, 2026 · On-site · Participant</p>
+      </article>
+      <article class="webinar">
+        <figure class="slot"><a href="webinar-ai-agents.jpg" target="_blank" rel="noopener" aria-label="Open certificate full size"><img data-slot src="webinar-ai-agents.jpg" alt="Certificate of participation, AI Agents: The Next Digital Workforce"></a><span class="ph">Certificate coming soon</span></figure>
+        <h3>AI Agents: The Next Digital Workforce</h3>
+        <p>MV Consultancy · Oct 2, 2026 · Google Meet</p>
+      </article>
+      <article class="webinar">
+        <figure class="slot"><a href="webinar-human-way.jpg" target="_blank" rel="noopener" aria-label="Open certificate full size"><img data-slot src="webinar-human-way.jpg" alt="Certificate of participation, Generate, the Human Way"></a><span class="ph">Certificate coming soon</span></figure>
+        <h3>Generate, the Human Way</h3>
+        <p>Yap Studios · Sep 28, 2026 · Google Meet</p>
+      </article>
+      <article class="webinar">
+        <figure class="slot"><a href="webinar-openai.jpg" target="_blank" rel="noopener" aria-label="Open certificate full size"><img data-slot src="webinar-openai.jpg" alt="Certificate of participation, FEU Tech x OpenAI Campus Launch"></a><span class="ph">Certificate coming soon</span></figure>
+        <h3>FEU Tech x OpenAI Campus Launch</h3>
+        <p>Participant</p>
+      </article>
+      <article class="webinar">
+        <figure class="slot"><a href="webinar-gcp.jpg" target="_blank" rel="noopener" aria-label="Open certificate full size"><img data-slot src="webinar-gcp.jpg" alt="Certificate of participation, Build Your Cloud Arsenal"></a><span class="ph">Certificate coming soon</span></figure>
+        <h3>Build Your Cloud Arsenal: A Deep Dive into GCP Compute Services</h3>
+        <p>Participant</p>
+      </article>
+    </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <div>
+      <p>I'm looking for an internship in web, mobile or applied AI. Email is the fastest way to reach me.</p>
+      <div class="email-line">
+        <code id="email">romar.zaratan@gmail.com</code>
+        <button class="copy" id="copyBtn" type="button">copy</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 John Romar Z. Francisco</span>
+    <a href="#home">Back to top ↑</a>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+
+  /* theme toggle */
+  var btn = document.getElementById('themeBtn');
+  function systemDark() { return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; }
+  function current() { return root.getAttribute('data-theme') || (systemDark() ? 'dark' : 'light'); }
+  try { var saved = localStorage.getItem('theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+  function label() { btn.textContent = current() === 'dark' ? 'light' : 'dark'; }
+  label();
+  btn.addEventListener('click', function () {
+    var next = current() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+    label();
+  });
+
+  /* profile photo: photo.jpg, then photo.png, then photo.webp; initials if none exist */
+  var photoImg = document.getElementById('photoImg');
+  var photoBox = document.getElementById('photoBox');
+  var candidates = ['photo.png', 'photo.webp'];
+  photoImg.addEventListener('error', function () {
+    var next = candidates.shift();
+    if (next) { photoImg.src = next; } else { photoBox.classList.add('empty'); }
+  });
+  if (photoImg.complete && photoImg.naturalWidth === 0) { photoImg.dispatchEvent(new Event('error')); }
+
+  /* project screenshots: hidden if the file is missing */
+  Array.prototype.forEach.call(document.querySelectorAll('img[data-optional]'), function (img) {
+    function hide() { img.parentNode.classList.add('empty'); }
+    img.addEventListener('error', hide);
+    if (img.complete && img.naturalWidth === 0) hide();
+  });
+
+  /* webinar certificates: placeholder if the file is missing */
+  Array.prototype.forEach.call(document.querySelectorAll('img[data-slot]'), function (img) {
+    function empty() { var box = img.closest('.slot'); if (box) box.classList.add('empty'); }
+    img.addEventListener('error', empty);
+    if (img.complete && img.naturalWidth === 0) empty();
+  });
+
+  /* highlight current section in the nav */
+  var links = Array.prototype.slice.call(document.querySelectorAll('#nav a'));
+  if ('IntersectionObserver' in window) {
+    var map = {};
+    links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          links.forEach(function (a) { a.classList.remove('on'); });
+          var a = map[e.target.id]; if (a) a.classList.add('on');
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    Object.keys(map).forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+  }
+
+  /* copy email */
+  var copy = document.getElementById('copyBtn');
+  var email = document.getElementById('email');
+  copy.addEventListener('click', function () {
+    function done() { copy.textContent = 'copied'; setTimeout(function () { copy.textContent = 'copy'; }, 1500); }
+    function fallback() {
+      var r = document.createRange(); r.selectNodeContents(email);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      copy.textContent = 'press copy';
+    }
+    try { navigator.clipboard.writeText(email.textContent).then(done, fallback); } catch (e) { fallback(); }
+  });
+})();
+</script>
+</body>
+</html>
