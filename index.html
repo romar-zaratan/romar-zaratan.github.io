@@ -10,164 +10,212 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: one narrow column; mono labels in a left rail, content on the right; sticky text nav.
+/* Layout: one 880px column. Sticky one-line nav, hero with photo on a solid backdrop,
+   full-width sections with a mono eyebrow, one bordered feature card for the capstone.
    Single bold move: the hero name sits in an object-detection bounding box with a confidence tag. */
 :root {
   --bg: #FBFBFC;
   --fg: #14171C;
   --muted: #5F6672;
   --line: #E3E6EA;
+  --soft: #F2F4F6;
   --accent: #0B7A5E;
   --accent-soft: #E6F3EE;
   --tile: #FFFFFF;
+  --photo-bg: #CFE5DB;
   --font-body: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0F1215; --fg: #E8EBEE; --muted: #9099A5; --line: #232930;
-    --accent: #5FD8AC; --accent-soft: #14241F; color-scheme: dark;
+    --bg: #0F1215; --fg: #E8EBEE; --muted: #9AA3AE; --line: #242A31; --soft: #171B20;
+    --accent: #5FD8AC; --accent-soft: #14241F; --photo-bg: #2C4A40; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0F1215; --fg: #E8EBEE; --muted: #9099A5; --line: #232930;
-  --accent: #5FD8AC; --accent-soft: #14241F; color-scheme: dark;
+  --bg: #0F1215; --fg: #E8EBEE; --muted: #9AA3AE; --line: #242A31; --soft: #171B20;
+  --accent: #5FD8AC; --accent-soft: #14241F; --photo-bg: #2C4A40; color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
 body {
-  background: var(--bg);
-  color: var(--fg);
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.65;
-  padding-block: 0 72px;
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.65;
+  padding-block: 0 56px;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
   -webkit-font-smoothing: antialiased;
 }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
-.wrap { max-width: 800px; margin: 0 auto; }
+.wrap { max-width: 880px; margin: 0 auto; }
 a { color: inherit; }
+img { max-width: 100%; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
 
 /* top bar */
-.top {
+.bar {
   position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
   background: var(--bg); border-bottom: 1px solid var(--line);
-  display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap;
-  padding-block: 14px;
+  display: flex; align-items: center; gap: 16px; padding-block: 12px;
 }
-.top nav { display: flex; gap: 6px 18px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .04em; }
-.top nav a { text-decoration: none; color: var(--muted); padding: 4px 0; }
-.top nav a:hover, .top nav a.on { color: var(--fg); }
-.top nav a.on { box-shadow: 0 1px 0 var(--accent); }
-.mark { font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .04em; color: var(--fg); text-decoration: none; }
-.tools { display: flex; gap: 8px; align-items: center; }
+.mark { font-family: var(--font-mono); font-size: 13px; letter-spacing: .03em; text-decoration: none; white-space: nowrap; }
+.bar nav { flex: 1; min-width: 0; display: flex; gap: 22px; overflow-x: auto; scrollbar-width: none; font-family: var(--font-mono); font-size: 13px; letter-spacing: .03em; }
+.bar nav::-webkit-scrollbar { display: none; }
+.bar nav a { text-decoration: none; color: var(--muted); padding-block: 4px; white-space: nowrap; border-bottom: 1px solid transparent; }
+.bar nav a:hover { color: var(--fg); }
+.bar nav a.on { color: var(--fg); border-bottom-color: var(--accent); }
+.tools { display: flex; gap: 8px; flex: none; }
 .pill {
-  font-family: var(--font-mono); font-size: 12px; letter-spacing: .04em; text-decoration: none;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: .03em; text-decoration: none;
   background: none; color: var(--muted); border: 1px solid var(--line);
-  padding: 4px 10px; border-radius: 3px; cursor: pointer; line-height: 1.5;
+  padding: 4px 11px; border-radius: 3px; cursor: pointer; line-height: 1.5; white-space: nowrap;
 }
 .pill:hover { color: var(--fg); border-color: var(--muted); }
 
 /* hero */
-.hero { padding-block: 80px 72px; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 40px; }
-.hero-text { flex: 1 1 380px; min-width: 0; }
+.hero {
+  display: grid; grid-template-columns: minmax(0, 1fr) 232px; gap: 56px; align-items: center;
+  padding-block: 88px 80px;
+}
 .detect { position: relative; display: inline-block; border: 1.5px solid var(--accent); padding: 22px 26px; max-width: 100%; }
 .detect .tag {
   position: absolute; left: -1.5px; top: 0; transform: translateY(-100%);
   background: var(--accent); color: var(--bg);
-  font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .03em;
-  padding: 2px 8px; white-space: nowrap;
+  font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .03em; padding: 2px 8px; white-space: nowrap;
 }
-h1 { margin: 0; font-size: clamp(2rem, 7vw, 3.6rem); line-height: 1.05; letter-spacing: -.025em; font-weight: 700; text-wrap: balance; }
-.role { margin: 28px 0 0; font-size: 1.15rem; max-width: 36ch; text-wrap: balance; }
-.facts { margin: 14px 0 0; padding: 0; list-style: none; font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); letter-spacing: .02em; display: grid; gap: 2px; }
-.cta { margin-top: 30px; display: flex; gap: 12px; flex-wrap: wrap; }
-.btn { display: inline-block; text-decoration: none; font-size: 14.5px; font-weight: 500; padding: 9px 18px; border: 1px solid var(--fg); border-radius: 3px; }
+h1 { margin: 0; font-size: clamp(2.1rem, 6.4vw, 3.7rem); line-height: 1.04; letter-spacing: -.028em; font-weight: 700; text-wrap: balance; }
+.role { margin: 28px 0 0; font-size: 1.12rem; line-height: 1.6; max-width: 40ch; text-wrap: pretty; }
+.facts { margin: 16px 0 0; padding: 0; list-style: none; font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); display: grid; gap: 2px; }
+.cta { margin-top: 28px; display: flex; gap: 10px; flex-wrap: wrap; }
+.btn { display: inline-block; text-decoration: none; font-size: 14.5px; font-weight: 500; padding: 10px 20px; border: 1px solid var(--fg); border-radius: 3px; }
 .btn.solid { background: var(--fg); color: var(--bg); }
-.btn.solid:hover { background: var(--accent); border-color: var(--accent); }
+.btn.solid:hover { background: var(--accent); border-color: var(--accent); color: var(--bg); }
 .btn.ghost:hover { border-color: var(--accent); color: var(--accent); }
 
-.photo { margin: 0; flex: 0 0 auto; width: 176px; max-width: 100%; aspect-ratio: 4 / 5; position: relative; border: 1px solid var(--line); background: var(--accent-soft); overflow: hidden; }
-.photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.photo .initials { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 2.2rem; letter-spacing: .06em; color: var(--accent); }
+.hero-text { grid-column: 1; grid-row: 1; min-width: 0; }
+.photo { grid-column: 2; grid-row: 1; margin: 0; width: 100%; aspect-ratio: 4 / 5; position: relative; background: var(--photo-bg); border-radius: 4px; overflow: hidden; }
+.photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+.photo .initials { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 2.4rem; letter-spacing: .06em; color: var(--accent); }
 .photo.empty img { display: none; }
 .photo.empty .initials { display: flex; }
 
 /* sections */
-section { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 12px 32px; padding-block: 44px; border-top: 1px solid var(--line); }
-.label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 4px; }
-section p { margin: 0; max-width: 62ch; }
-section p + p { margin-top: 14px; }
-h2 { margin: 0; font-size: 12px; font-weight: 400; font-family: var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 4px; }
-h3 { margin: 0; font-size: 1.1rem; font-weight: 600; letter-spacing: -.01em; }
+section { padding-block: 64px; border-top: 1px solid var(--line); }
+h2 { margin: 0 0 32px; font-size: 1.7rem; line-height: 1.2; font-weight: 650; letter-spacing: -.02em; }
+h3 { margin: 0; font-size: 1.12rem; font-weight: 600; letter-spacing: -.01em; line-height: 1.35; }
 .sub { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; font-weight: 400; }
-.block + .block { margin-top: 36px; }
+p { margin: 0; }
+.muted { color: var(--muted); }
+.hint { font-family: var(--font-mono); font-size: 12px; color: var(--muted); margin: -14px 0 22px; }
 
-.item-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-.when { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); }
-.item ul { margin: 12px 0 0; padding-left: 18px; max-width: 62ch; }
-.item li + li { margin-top: 6px; }
-.item li::marker { color: var(--accent); }
-.item + .item { margin-top: 40px; }
-.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
-.chip { font-family: var(--font-mono); font-size: 12px; padding: 2px 9px; border: 1px solid var(--line); border-radius: 3px; color: var(--muted); }
+/* about */
+.about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 48px; }
+.stack > * + * { margin-top: 36px; }
+.entry + .entry { margin-top: 18px; }
+.entry .top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.when { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-family: var(--font-mono); font-size: 12.5px; padding: 3px 10px; border: 1px solid var(--line); border-radius: 3px; background: var(--soft); }
+.group + .group { margin-top: 20px; }
+.group .name { font-weight: 600; font-size: 14.5px; margin-bottom: 8px; }
 
-.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 18px; }
-.gallery figure { margin: 0; min-width: 0; }
-.gallery img { width: 100%; height: auto; display: block; border: 1px solid var(--line); }
-.gallery figure.empty { display: none; }
+/* projects */
+.feature { border: 1px solid var(--line); border-radius: 6px; padding: 32px; }
+.feature-head { display: flex; gap: 22px; align-items: center; }
+.feature-head img { width: 88px; height: 88px; object-fit: contain; flex: none; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .04em; color: var(--accent); margin-bottom: 4px; }
+.feature-head h3 { font-size: 1.7rem; letter-spacing: -.02em; }
+.lead { margin-top: 20px; max-width: 64ch; font-size: 1.04rem; }
+.cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin-top: 28px; }
+.cols p { font-size: 15px; color: var(--muted); }
+.cols .sub { margin-bottom: 8px; }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 28px; }
+.stat { background: var(--soft); border-radius: 4px; padding: 16px 18px; }
+.stat b { display: block; font-family: var(--font-mono); font-weight: 500; font-size: 1.5rem; line-height: 1.2; color: var(--accent); }
+.stat span { display: block; margin-top: 4px; font-size: 13.5px; line-height: 1.4; color: var(--muted); }
+.note { margin-top: 20px; font-size: 15px; color: var(--muted); max-width: 64ch; }
+.feature .chips { margin-top: 20px; }
+.posters { display: grid; grid-template-columns: repeat(2, minmax(0, 220px)); gap: 16px; margin-top: 28px; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 16px; }
+.gallery.none { display: none; }
+figure.shot { margin: 0; min-width: 0; }
+figure.shot.empty { display: none; }
+figure.shot a { display: block; }
+figure.shot img { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 3px; background: var(--soft); }
+figure.shot a:hover img { border-color: var(--accent); }
+figure.shot figcaption { margin-top: 8px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
 
-.rows { display: grid; }
-.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; padding-block: 11px; border-bottom: 1px solid var(--line); align-items: baseline; }
-.row:first-child { padding-top: 0; }
-.row:last-child { border-bottom: 0; padding-bottom: 0; }
-.row .by { display: block; font-size: 14px; color: var(--muted); }
-.row .yr { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.plain { margin-top: 56px; }
+.plain .top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.plain ul { margin: 14px 0 0; padding-left: 18px; max-width: 64ch; }
+.plain li + li { margin-top: 6px; }
+.plain li::marker { color: var(--accent); }
+.plain .chips { margin-top: 16px; }
 
-.badges { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; margin-bottom: 28px; }
+/* certifications */
+.badges { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-bottom: 32px; }
 .badge { display: block; text-decoration: none; min-width: 0; }
-.badge .tile { background: var(--tile); border: 1px solid var(--line); padding: 10px; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; }
+.badge .tile { background: var(--tile); border: 1px solid var(--line); border-radius: 4px; padding: 14px; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; }
 .badge:hover .tile { border-color: var(--accent); }
 .badge img { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; }
-.badge span { display: block; margin-top: 8px; font-family: var(--font-mono); font-size: 11.5px; line-height: 1.4; color: var(--muted); letter-spacing: .02em; }
+.badge span { display: block; margin-top: 8px; font-size: 13.5px; line-height: 1.4; color: var(--muted); }
 .badge:hover span { color: var(--fg); }
-.hint { font-family: var(--font-mono); font-size: 12px; color: var(--muted); margin: 0 0 14px; }
+.rows { display: grid; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; padding-block: 12px; border-bottom: 1px solid var(--line); align-items: baseline; }
+.row:first-child { border-top: 1px solid var(--line); }
+.row .by { display: block; font-size: 14px; color: var(--muted); }
 .row .by a { color: var(--accent); text-decoration: none; }
 .row .by a:hover { text-decoration: underline; }
+.row .yr { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
 
-.skills { display: grid; gap: 14px; margin: 0; }
-.skills div { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 4px 20px; }
-.skills dt { font-weight: 600; font-size: 14.5px; }
-.skills dd { margin: 0; color: var(--muted); font-size: 15px; }
-
-.webinars { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+/* webinars */
+.webinars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 20px; }
 .webinar { min-width: 0; }
-.webinar .slot { margin: 0 0 14px; aspect-ratio: 4 / 3; max-width: 100%; border: 1px solid var(--line); background: var(--accent-soft); position: relative; overflow: hidden; }
-.webinar .slot a { display: block; width: 100%; height: 100%; }
-.webinar .slot img { width: 100%; height: 100%; object-fit: contain; display: block; background: var(--bg); }
-.webinar .slot .ph { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; text-align: center; padding: 16px; font-family: var(--font-mono); font-size: 12px; letter-spacing: .04em; color: var(--accent); }
-.webinar .slot.empty img, .webinar .slot.empty a { display: none; }
-.webinar .slot.empty .ph { display: flex; }
-.webinar p { font-size: 14.5px; color: var(--muted); margin-top: 4px; }
+.slot { margin: 0 0 12px; aspect-ratio: 4 / 3; position: relative; overflow: hidden; background: var(--soft); border: 1px solid var(--line); border-radius: 3px; }
+.slot a { display: block; width: 100%; height: 100%; }
+.slot a:hover { outline: 1px solid var(--accent); outline-offset: -1px; }
+.slot img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.slot .ph { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; text-align: center; padding: 12px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.slot.empty img, .slot.empty a { display: none; }
+.slot.empty .ph { display: flex; }
+.webinar h3 { font-size: 15px; font-weight: 600; line-height: 1.4; }
+.webinar p { margin-top: 4px; font-size: 13px; line-height: 1.45; color: var(--muted); }
 
-.email-line { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
-.email-line code { font-family: var(--font-mono); font-size: 15px; word-break: break-all; }
-.copy { font-family: var(--font-mono); font-size: 12px; background: none; color: var(--accent); border: 1px solid var(--accent); padding: 3px 10px; border-radius: 3px; cursor: pointer; }
+/* contact */
+.contact p { max-width: 52ch; font-size: 1.08rem; }
+.email-line { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+.email-line code { font-family: var(--font-mono); font-size: 1.05rem; word-break: break-all; }
+.copy { font-family: var(--font-mono); font-size: 12px; background: none; color: var(--accent); border: 1px solid var(--accent); padding: 4px 11px; border-radius: 3px; cursor: pointer; }
 .copy:hover { background: var(--accent-soft); }
 
 footer { border-top: 1px solid var(--line); padding-top: 24px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 
-@media (max-width: 640px) {
-  .top { position: static; }
-  section { grid-template-columns: minmax(0, 1fr); padding-block: 34px; gap: 16px; }
-  .skills div { grid-template-columns: minmax(0, 1fr); }
-  .hero { padding-block: 56px 48px; }
+@media (max-width: 760px) {
+  html { scroll-padding-top: 64px; }
+  .mark, .tools .resume { display: none; }
+  .bar { gap: 12px; }
+  .bar nav { gap: 20px; }
+  .hero { grid-template-columns: minmax(0, 1fr); gap: 32px; padding-block: 40px 56px; }
+  .photo, .hero-text { grid-column: auto; grid-row: auto; }
+  .photo { width: 132px; }
   .detect { padding: 18px; }
-  html { scroll-padding-top: 8px; }
+  section { padding-block: 48px; }
+  h2 { font-size: 1.5rem; margin-bottom: 26px; }
+  .about { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .feature { padding: 20px; }
+  .feature-head { gap: 16px; }
+  .feature-head img { width: 64px; height: 64px; }
+  .feature-head h3 { font-size: 1.45rem; }
+  .cols { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .stats { gap: 8px; }
+  .stat { padding: 12px; }
+  .stat b { font-size: 1rem; letter-spacing: -.02em; }
+  .stat span { font-size: 12.5px; }
+  .posters { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .badges { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .webinars { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 12px; }
+  .webinar h3 { font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 </style>
@@ -175,7 +223,7 @@ footer { border-top: 1px solid var(--line); padding-top: 24px; font-family: var(
 </head>
 <body>
 <div class="wrap" id="home">
-  <header class="top">
+  <header class="bar">
     <a class="mark" href="#home">jrz.francisco</a>
     <nav aria-label="Sections" id="nav">
       <a href="#home">Home</a>
@@ -186,12 +234,16 @@ footer { border-top: 1px solid var(--line); padding-top: 24px; font-family: var(
       <a href="#contact">Contact</a>
     </nav>
     <div class="tools">
-      <a class="pill" href="Francisco_Resume.pdf" target="_blank" rel="noopener">Resume</a>
-      <button class="pill" id="themeBtn" type="button" aria-label="Toggle color theme">theme</button>
+      <a class="pill resume" href="Francisco_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      <button class="pill" id="themeBtn" type="button" aria-label="Toggle color theme">dark</button>
     </div>
   </header>
 
   <div class="hero">
+    <figure class="photo" id="photoBox">
+      <img id="photoImg" src="photo.jpg" alt="Portrait of John Romar Francisco" width="232" height="290">
+      <span class="initials" aria-hidden="true">JF</span>
+    </figure>
     <div class="hero-text">
       <div class="detect">
         <span class="tag">developer 0.97</span>
@@ -207,112 +259,130 @@ footer { border-top: 1px solid var(--line); padding-top: 24px; font-family: var(
         <a class="btn ghost" href="#contact">Email me</a>
       </div>
     </div>
-    <figure class="photo" id="photoBox">
-      <img id="photoImg" src="photo.jpg" alt="Portrait of John Romar Francisco" width="176" height="220">
-      <span class="initials" aria-hidden="true">JF</span>
-    </figure>
   </div>
 
   <section id="about">
     <h2>About</h2>
-    <div>
-      <div class="block">
-        <h3 class="sub">Education</h3>
-        <div class="item">
-          <div class="item-head"><h3>FEU Institute of Technology</h3><span class="when">Expected 2027</span></div>
-          <p style="margin-top:4px">BS in Information Technology, specialization in Web and Mobile Application. Manila, Philippines.</p>
+    <div class="about">
+      <div class="stack">
+        <div>
+          <h3 class="sub">Education</h3>
+          <div class="entry">
+            <div class="top"><h3>FEU Institute of Technology</h3><span class="when">Expected 2027</span></div>
+            <p class="muted">BS in Information Technology, specialization in Web and Mobile Application. Manila, Philippines.</p>
+          </div>
+        </div>
+        <div>
+          <h3 class="sub">Organizations</h3>
+          <div class="entry">
+            <div class="top"><h3>Alliance of Information Technology Students</h3><span class="when">2024 – present</span></div>
+            <p class="muted">Member</p>
+          </div>
+        </div>
+        <div>
+          <h3 class="sub">Interests</h3>
+          <div class="chips">
+            <span class="chip">Applied AI</span><span class="chip">Computer vision</span><span class="chip">3D modeling</span><span class="chip">Photography</span><span class="chip">Game development</span>
+          </div>
         </div>
       </div>
-
-      <div class="block">
-        <h3 class="sub">Organizations</h3>
-        <div class="rows">
-          <div class="row"><span>Alliance of Information Technology Students<span class="by">Member</span></span><span class="yr">2024 – present</span></div>
-        </div>
-      </div>
-
-      <div class="block">
+      <div>
         <h3 class="sub">Skills</h3>
-        <dl class="skills">
-          <div><dt>Languages</dt><dd>HTML, CSS, Python, JavaScript, PHP, Java, Kotlin, C++</dd></div>
-          <div><dt>AI &amp; computer vision</dt><dd>YOLOv11n, Ultralytics, Python</dd></div>
-          <div><dt>Frameworks</dt><dd>Laravel, CodeIgniter</dd></div>
-          <div><dt>Databases</dt><dd>MySQL, SQL, Supabase</dd></div>
-          <div><dt>Deployment</dt><dd>Railway, cPanel, GitHub Pages</dd></div>
-          <div><dt>Tools</dt><dd>Git, GitHub, Figma, Visual Studio Code, Android Studio</dd></div>
-          <div><dt>Soft skills</dt><dd>Teamwork, Adaptability, Creativity</dd></div>
-        </dl>
-      </div>
-
-      <div class="block">
-        <h3 class="sub">Interests</h3>
-        <p>Applied AI and computer vision, 3D modeling, photography, game development.</p>
+        <div class="group"><div class="name">Languages</div><div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">Python</span><span class="chip">JavaScript</span><span class="chip">PHP</span><span class="chip">Java</span><span class="chip">Kotlin</span><span class="chip">C++</span></div></div>
+        <div class="group"><div class="name">AI and computer vision</div><div class="chips"><span class="chip">YOLOv11n</span><span class="chip">Ultralytics</span><span class="chip">Python</span></div></div>
+        <div class="group"><div class="name">Frameworks</div><div class="chips"><span class="chip">Laravel</span><span class="chip">CodeIgniter</span></div></div>
+        <div class="group"><div class="name">Databases</div><div class="chips"><span class="chip">MySQL</span><span class="chip">SQL</span><span class="chip">Supabase</span></div></div>
+        <div class="group"><div class="name">Deployment and hosting</div><div class="chips"><span class="chip">Railway</span><span class="chip">cPanel</span><span class="chip">GitHub Pages</span></div></div>
+        <div class="group"><div class="name">Tools</div><div class="chips"><span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Figma</span><span class="chip">Visual Studio Code</span><span class="chip">Android Studio</span></div></div>
+        <div class="group"><div class="name">Soft skills</div><div class="chips"><span class="chip">Teamwork</span><span class="chip">Adaptability</span><span class="chip">Creativity</span></div></div>
       </div>
     </div>
   </section>
 
   <section id="projects">
     <h2>Projects</h2>
-    <div>
-      <article class="item">
-        <div class="item-head"><h3>iSpyWorld</h3><span class="when">Developer</span></div>
-        <p style="margin-top:4px">Mobile learning app aimed at improving literacy.</p>
-        <ul>
-          <li>Developed a mobile learning app aimed at improving literacy.</li>
-          <li>Integrated YOLOv11n object detection (via Ultralytics) and speech coaching as the core learning features.</li>
-        </ul>
-        <div class="chips"><span class="chip">YOLOv11n</span><span class="chip">Ultralytics</span><span class="chip">Python</span><span class="chip">Mobile</span></div>
-        <div class="gallery">
-          <figure><img data-optional src="ispyworld-1.jpg" alt="iSpyWorld screenshot 1"></figure>
-          <figure><img data-optional src="ispyworld-2.jpg" alt="iSpyWorld screenshot 2"></figure>
-          <figure><img data-optional src="ispyworld-3.jpg" alt="iSpyWorld screenshot 3"></figure>
-        </div>
-      </article>
 
-      <article class="item">
-        <div class="item-head"><h3>WasteWatch</h3><span class="when">Developer</span></div>
-        <p style="margin-top:4px">Waste bin monitoring simulation.</p>
-        <ul>
-          <li>Built a C++ console application that simulates waste bin fill levels and triggers alerts when a bin needs collection.</li>
-          <li>Implemented a user interface and reporting feature to log and review bin status.</li>
-        </ul>
-        <div class="chips"><span class="chip">C++</span><span class="chip">Console app</span><span class="chip">Reporting</span></div>
-        <div class="gallery">
-          <figure><img data-optional src="wastewatch-1.jpg" alt="WasteWatch screenshot 1"></figure>
-          <figure><img data-optional src="wastewatch-2.jpg" alt="WasteWatch screenshot 2"></figure>
+    <article class="feature">
+      <div class="feature-head">
+        <img src="ispyworld-logo.png" alt="iSpy World logo" width="88" height="88">
+        <div>
+          <p class="eyebrow">Capstone project · Team TamaTech · FEU Institute of Technology</p>
+          <h3>iSpy World</h3>
         </div>
-      </article>
-    </div>
+      </div>
+      <p class="lead">A mobile learning application for young children that uses real-time object scanning (YOLOv11n) and interactive speech coaching to build foundational literacy and spelling.</p>
+
+      <div class="cols">
+        <div>
+          <h3 class="sub">The problem</h3>
+          <p>The Philippines has a learning poverty rate of about 91 percent, and the gap starts with early literacy. At Future Minds Academy in Mandaluyong City, vocabulary and spelling lessons still depend on physical flashcards, teacher modeling and handwritten progress journals. Teachers carry a heavy preparation load and see progress data late.</p>
+        </div>
+        <div>
+          <h3 class="sub">What we built</h3>
+          <p>An Android app and web portal for learners aged 5 to 7. Children scan objects around them and go through a scan, identify, pronounce, spell and feedback cycle with native-speaker Filipino and English audio. Teachers and parents get progress dashboards, messaging and consultation booking.</p>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b>9 of 9</b><span>objectives met</span></div>
+        <div class="stat"><b>44</b><span>modules passed testing</span></div>
+        <div class="stat"><b>Excellent</b><span>rating for both apps from 27 respondents</span></div>
+      </div>
+
+      <p class="note"><strong>My role:</strong> Developer. I integrated YOLOv11n object detection (via Ultralytics) and speech coaching, the core learning features. The team built it with Agile Scrum and tested it through alpha, beta, unit and system testing over three iterations.</p>
+
+      <div class="chips"><span class="chip">YOLOv11n</span><span class="chip">Ultralytics</span><span class="chip">Android</span><span class="chip">Web portal</span><span class="chip">Agile Scrum</span></div>
+
+      <div class="posters">
+        <figure class="shot"><a href="ispyworld-poster.jpg" target="_blank" rel="noopener"><img src="ispyworld-poster-thumb.jpg" alt="iSpy World group poster"></a><figcaption>Group poster</figcaption></figure>
+        <figure class="shot"><a href="ispyworld-research.jpg" target="_blank" rel="noopener"><img src="ispyworld-research-thumb.jpg" alt="iSpy World research poster"></a><figcaption>Research poster</figcaption></figure>
+      </div>
+      <div class="gallery" id="ispyShots">
+        <figure class="shot"><a href="ispyworld-1.jpg" target="_blank" rel="noopener"><img data-optional src="ispyworld-1.jpg" alt="iSpy World app screen 1"></a><figcaption>App screen</figcaption></figure>
+        <figure class="shot"><a href="ispyworld-2.jpg" target="_blank" rel="noopener"><img data-optional src="ispyworld-2.jpg" alt="iSpy World app screen 2"></a><figcaption>App screen</figcaption></figure>
+        <figure class="shot"><a href="ispyworld-3.jpg" target="_blank" rel="noopener"><img data-optional src="ispyworld-3.jpg" alt="iSpy World app screen 3"></a><figcaption>App screen</figcaption></figure>
+      </div>
+    </article>
+
+    <article class="plain">
+      <div class="top"><h3>WasteWatch</h3><span class="when">Waste bin monitoring simulation</span></div>
+      <ul>
+        <li>Built a C++ console application that simulates waste bin fill levels and triggers alerts when a bin needs collection.</li>
+        <li>Implemented a user interface and reporting feature to log and review bin status.</li>
+      </ul>
+      <div class="chips"><span class="chip">C++</span><span class="chip">Console app</span><span class="chip">Reporting</span></div>
+      <div class="gallery" id="wasteShots">
+        <figure class="shot"><a href="wastewatch-1.jpg" target="_blank" rel="noopener"><img data-optional src="wastewatch-1.jpg" alt="WasteWatch screenshot 1"></a></figure>
+        <figure class="shot"><a href="wastewatch-2.jpg" target="_blank" rel="noopener"><img data-optional src="wastewatch-2.jpg" alt="WasteWatch screenshot 2"></a></figure>
+      </div>
+    </article>
   </section>
 
   <section id="certifications">
     <h2>Certifications</h2>
-    <div>
-      <p class="hint">Click a badge to verify it on Credly.</p>
-      <div class="badges">
-        <a class="badge" href="https://www.credly.com/badges/3352ff16-d0fb-4f2a-80be-c74750287571/public_url" target="_blank" rel="noopener"><div class="tile"><img src="badge-ccna-itn.png" alt="Cisco Networking Academy badge, CCNA: Introduction to Networks"></div><span>CCNA: Introduction to Networks</span></a>
-        <a class="badge" href="https://www.credly.com/badges/0a98e289-9ea5-4df8-aa78-bb196d08976d/public_url" target="_blank" rel="noopener"><div class="tile"><img src="badge-ccst.png" alt="Cisco Certified Support Technician Networking badge"></div><span>Cisco CCST Networking</span></a>
-        <a class="badge" href="https://www.credly.com/badges/6b98f707-2096-4fef-87cb-0eb80e09bc95/public_url" target="_blank" rel="noopener"><div class="tile"><img src="badge-pmi.png" alt="PMI Project Management Ready badge"></div><span>PMI Project Management Ready</span></a>
-        <a class="badge" href="https://www.credly.com/badges/de1c3042-cf16-4aca-aa82-5222b00c32c5/public_url" target="_blank" rel="noopener"><div class="tile"><img src="badge-python.png" alt="IT Specialist Python badge from Pearson"></div><span>IT Specialist: Python</span></a>
-      </div>
-      <div class="rows">
-        <div class="row"><span>CCNA: Introduction to Networks<span class="by">Cisco · <a href="https://www.credly.com/badges/3352ff16-d0fb-4f2a-80be-c74750287571/public_url" target="_blank" rel="noopener">Credly ↗</a></span></span><span class="yr">2026</span></div>
-        <div class="row"><span>PMI Project Management Ready<span class="by">Project Management Institute · <a href="https://www.credly.com/badges/6b98f707-2096-4fef-87cb-0eb80e09bc95/public_url" target="_blank" rel="noopener">Credly ↗</a> · <a href="cert-pmi.pdf" target="_blank" rel="noopener">PDF ↗</a></span></span><span class="yr">2026</span></div>
-        <div class="row"><span>Information Technology Specialist in Python<span class="by">Certiport · <a href="https://www.credly.com/badges/de1c3042-cf16-4aca-aa82-5222b00c32c5/public_url" target="_blank" rel="noopener">Credly ↗</a> · <a href="cert-python.pdf" target="_blank" rel="noopener">PDF ↗</a></span></span><span class="yr">2025</span></div>
-        <div class="row"><span>Cisco Certified Support Technician Networking<span class="by">Cisco, lifetime · <a href="https://www.credly.com/badges/0a98e289-9ea5-4df8-aa78-bb196d08976d/public_url" target="_blank" rel="noopener">Credly ↗</a> · <a href="cert-ccst.pdf" target="_blank" rel="noopener">PDF ↗</a></span></span><span class="yr">2025</span></div>
-        <div class="row"><span>CCNA: Switching, Routing, and Wireless Essentials<span class="by">Cisco</span></span><span class="yr">2025</span></div>
-        <div class="row"><span>NDG Linux Essentials<span class="by">Cisco</span></span><span class="yr">2025</span></div>
-        <div class="row"><span>Information Technology Specialist in Databases<span class="by">Certiport</span></span><span class="yr">2025</span></div>
-        <div class="row"><span>CCNA: Enterprise Networking, Security, and Automation<span class="by">Cisco</span></span><span class="yr">2025</span></div>
-        <div class="row"><span>DevNet Associate<span class="by">Cisco</span></span><span class="yr">2025</span></div>
-      </div>
+    <p class="hint">Click a badge to verify it on Credly.</p>
+    <div class="badges">
+      <a class="badge" href="https://www.credly.com/badges/3352ff16-d0fb-4f2a-80be-c74750287571/public_url" target="_blank" rel="noopener"><div class="tile"><img src="badge-ccna-itn.png" alt="Cisco Networking Academy badge, CCNA: Introduction to Networks"></div><span>CCNA: Introduction to Networks</span></a>
+      <a class="badge" href="https://www.credly.com/badges/0a98e289-9ea5-4df8-aa78-bb196d08976d/public_url" target="_blank" rel="noopener"><div class="tile"><img src="badge-ccst.png" alt="Cisco Certified Support Technician Networking badge"></div><span>Cisco CCST Networking</span></a>
+      <a class="badge" href="https://www.credly.com/badges/6b98f707-2096-4fef-87cb-0eb80e09bc95/public_url" target="_blank" rel="noopener"><div class="tile"><img src="badge-pmi.png" alt="PMI Project Management Ready badge"></div><span>PMI Project Management Ready</span></a>
+      <a class="badge" href="https://www.credly.com/badges/de1c3042-cf16-4aca-aa82-5222b00c32c5/public_url" target="_blank" rel="noopener"><div class="tile"><img src="badge-python.png" alt="IT Specialist Python badge from Pearson"></div><span>IT Specialist: Python</span></a>
+    </div>
+    <div class="rows">
+      <div class="row"><span>CCNA: Introduction to Networks<span class="by">Cisco · <a href="https://www.credly.com/badges/3352ff16-d0fb-4f2a-80be-c74750287571/public_url" target="_blank" rel="noopener">Credly ↗</a></span></span><span class="yr">2026</span></div>
+      <div class="row"><span>PMI Project Management Ready<span class="by">Project Management Institute · <a href="https://www.credly.com/badges/6b98f707-2096-4fef-87cb-0eb80e09bc95/public_url" target="_blank" rel="noopener">Credly ↗</a> · <a href="cert-pmi.pdf" target="_blank" rel="noopener">PDF ↗</a></span></span><span class="yr">2026</span></div>
+      <div class="row"><span>Information Technology Specialist in Python<span class="by">Certiport · <a href="https://www.credly.com/badges/de1c3042-cf16-4aca-aa82-5222b00c32c5/public_url" target="_blank" rel="noopener">Credly ↗</a> · <a href="cert-python.pdf" target="_blank" rel="noopener">PDF ↗</a></span></span><span class="yr">2025</span></div>
+      <div class="row"><span>Cisco Certified Support Technician Networking<span class="by">Cisco, lifetime · <a href="https://www.credly.com/badges/0a98e289-9ea5-4df8-aa78-bb196d08976d/public_url" target="_blank" rel="noopener">Credly ↗</a> · <a href="cert-ccst.pdf" target="_blank" rel="noopener">PDF ↗</a></span></span><span class="yr">2025</span></div>
+      <div class="row"><span>CCNA: Switching, Routing, and Wireless Essentials<span class="by">Cisco</span></span><span class="yr">2025</span></div>
+      <div class="row"><span>NDG Linux Essentials<span class="by">Cisco</span></span><span class="yr">2025</span></div>
+      <div class="row"><span>Information Technology Specialist in Databases<span class="by">Certiport</span></span><span class="yr">2025</span></div>
+      <div class="row"><span>CCNA: Enterprise Networking, Security, and Automation<span class="by">Cisco</span></span><span class="yr">2025</span></div>
+      <div class="row"><span>DevNet Associate<span class="by">Cisco</span></span><span class="yr">2025</span></div>
     </div>
   </section>
 
   <section id="webinars">
     <h2>Webinars</h2>
-    <div>
-      <p class="hint">Click a certificate to view it full size.</p>
+    <p class="hint">Click a certificate to view it full size.</p>
     <div class="webinars">
       <article class="webinar">
         <figure class="slot"><a href="webinar-fintech.jpg" target="_blank" rel="noopener" aria-label="Open certificate full size"><img data-slot src="webinar-fintech.jpg" alt="Certificate of participation, Cybersecurity in FinTech webinar"></a><span class="ph">Certificate coming soon</span></figure>
@@ -322,7 +392,7 @@ footer { border-top: 1px solid var(--line); padding-top: 24px; font-family: var(
       <article class="webinar">
         <figure class="slot"><a href="webinar-ticap-zoom.jpg" target="_blank" rel="noopener" aria-label="Open certificate full size"><img data-slot src="webinar-ticap-zoom.jpg" alt="Certificate of appreciation, TICaP 21"></a><span class="ph">Certificate coming soon</span></figure>
         <h3>TICaP 21: To the Future and Beyond</h3>
-        <p>FEU Institute of Technology · Oct 17, 2026 · Zoom · Certificate of appreciation</p>
+        <p>FEU Institute of Technology · Oct 17, 2026 · Zoom · Appreciation</p>
       </article>
       <article class="webinar">
         <figure class="slot"><a href="webinar-ticap-onsite.jpg" target="_blank" rel="noopener" aria-label="Open certificate full size"><img data-slot src="webinar-ticap-onsite.jpg" alt="Certificate of participation, TICaP 21"></a><span class="ph">Certificate coming soon</span></figure>
@@ -350,17 +420,17 @@ footer { border-top: 1px solid var(--line); padding-top: 24px; font-family: var(
         <p>Participant</p>
       </article>
     </div>
-    </div>
   </section>
 
-  <section id="contact">
+  <section id="contact" class="contact">
     <h2>Contact</h2>
-    <div>
-      <p>I'm looking for an internship in web, mobile or applied AI. Email is the fastest way to reach me.</p>
-      <div class="email-line">
-        <code id="email">romar.zaratan@gmail.com</code>
-        <button class="copy" id="copyBtn" type="button">copy</button>
-      </div>
+    <p>I'm looking for an internship in web, mobile or applied AI. Email is the fastest way to reach me.</p>
+    <div class="email-line">
+      <code id="email">romar.zaratan@gmail.com</code>
+      <button class="copy" id="copyBtn" type="button">copy</button>
+    </div>
+    <div class="cta">
+      <a class="btn solid" href="Francisco_Resume.pdf" target="_blank" rel="noopener">View resume</a>
     </div>
   </section>
 
@@ -398,9 +468,11 @@ footer { border-top: 1px solid var(--line); padding-top: 24px; font-family: var(
   });
   if (photoImg.complete && photoImg.naturalWidth === 0) { photoImg.dispatchEvent(new Event('error')); }
 
-  /* project screenshots: hidden if the file is missing */
+  /* optional screenshots: hidden if the file is missing; empty galleries collapse */
+  function checkGallery(g) { if (g && !g.querySelector('figure.shot:not(.empty)')) g.classList.add('none'); }
   Array.prototype.forEach.call(document.querySelectorAll('img[data-optional]'), function (img) {
-    function hide() { img.parentNode.classList.add('empty'); }
+    var fig = img.closest('figure');
+    function hide() { fig.classList.add('empty'); checkGallery(fig.closest('.gallery')); }
     img.addEventListener('error', hide);
     if (img.complete && img.naturalWidth === 0) hide();
   });
@@ -412,8 +484,9 @@ footer { border-top: 1px solid var(--line); padding-top: 24px; font-family: var(
     if (img.complete && img.naturalWidth === 0) empty();
   });
 
-  /* highlight current section in the nav */
-  var links = Array.prototype.slice.call(document.querySelectorAll('#nav a'));
+  /* highlight the current section in the nav */
+  var nav = document.getElementById('nav');
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
   if ('IntersectionObserver' in window) {
     var map = {};
     links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
@@ -421,7 +494,11 @@ footer { border-top: 1px solid var(--line); padding-top: 24px; font-family: var(
       entries.forEach(function (e) {
         if (e.isIntersecting) {
           links.forEach(function (a) { a.classList.remove('on'); });
-          var a = map[e.target.id]; if (a) a.classList.add('on');
+          var a = map[e.target.id];
+          if (a) {
+            a.classList.add('on');
+            if (nav.scrollWidth > nav.clientWidth) nav.scrollTo({ left: Math.max(0, a.offsetLeft - 16), behavior: 'smooth' });
+          }
         }
       });
     }, { rootMargin: '-40% 0px -55% 0px' });
