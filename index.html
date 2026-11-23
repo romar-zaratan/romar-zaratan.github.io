@@ -7,11 +7,11 @@
 <meta name="description" content="John Romar Z. Francisco, 4th-year IT student building web and mobile apps, with a focus on applied AI and computer vision. Open to internships.">
 <meta property="og:title" content="John Romar Francisco">
 <meta property="og:description" content="Web and mobile developer. Capstone: iSpy World, a YOLOv11n-powered literacy app for young learners.">
-<meta property="og:image" content="assets/ispy/poster-thumb.webp">
+<meta property="og:image" content="poster-thumb.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="preload" as="image" href="assets/photo.webp">
+<link rel="preload" as="image" href="photo.webp">
 <style>
 /* One idea carried through the page: everything is "detected". Bounding boxes with
    class + confidence tags mark the hero photo, section labels and project frames. */
@@ -299,7 +299,7 @@ dialog.lb p { text-align: center; color: #D5DAE0; font-family: var(--font-mono);
       <a href="#contact">Contact</a>
     </nav>
     <div class="tools">
-      <a class="pill resume" href="docs/Francisco_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      <a class="pill resume" href="Francisco_Resume.pdf" target="_blank" rel="noopener">Resume</a>
       <button class="pill" id="themeBtn" type="button" aria-label="Toggle color theme">dark</button>
     </div>
   </header>
@@ -317,12 +317,12 @@ dialog.lb p { text-align: center; color: #D5DAE0; font-family: var(--font-mono);
       </ul>
       <div class="cta">
         <a class="btn solid" href="#work">See my work</a>
-        <a class="btn ghost" href="docs/Francisco_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+        <a class="btn ghost" href="Francisco_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
       </div>
     </div>
     <div class="frame-col">
       <figure class="frame" aria-label="Portrait of John Romar Francisco, annotated like an object-detection result">
-        <div class="pic"><img src="assets/photo.webp" alt="Portrait of John Romar Francisco" width="800" height="800" fetchpriority="high"></div>
+        <div class="pic"><img src="photo.webp" alt="Portrait of John Romar Francisco" width="800" height="800" fetchpriority="high"></div>
         <div class="scan" aria-hidden="true"></div>
         <div class="box b1" style="left:20%;top:5%;width:62%;height:94%" aria-hidden="true"><i>person 0.98</i></div>
         <div class="box b2 in" style="left:31%;top:39%;width:43%;height:17%" aria-hidden="true"><i>glasses 0.94</i></div>
@@ -339,7 +339,7 @@ dialog.lb p { text-align: center; color: #D5DAE0; font-family: var(--font-mono);
 
     <article aria-labelledby="ispy-title">
       <div class="case-head">
-        <img src="assets/ispy/logo.webp" alt="iSpy World logo" width="96" height="96">
+        <img src="logo.webp" alt="iSpy World logo" width="96" height="96">
         <div>
           <p class="eyebrow">01 · Capstone · Team TamaTech</p>
           <h3 id="ispy-title">iSpy World</h3>
@@ -356,13 +356,13 @@ dialog.lb p { text-align: center; color: #D5DAE0; font-family: var(--font-mono);
 
       <div class="phones-wrap">
         <div class="phones" tabindex="0" aria-label="iSpy World app screens, scrolls sideways">
-          <figure class="phone"><a href="assets/ispy/app-login.webp" data-lb="Role selection: teacher, parent or student"><img src="assets/ispy/app-login.webp" alt="iSpy World start screen asking who is using the app: teacher or parent" loading="lazy" width="560" height="1084"></a><figcaption><b>01 · Start</b>Teachers, parents and students each get their own entry.</figcaption></figure>
-          <figure class="phone"><a href="assets/ispy/app-home.webp" data-lb="Student dashboard: today's activity, average score and saved game"><img src="assets/ispy/app-home.webp" alt="Student dashboard greeting Student 12, with today's activities, a 92 percent average score and a saved game" loading="lazy" width="560" height="1084"></a><figcaption><b>02 · Home</b>Today's progress and a one-tap way back into a saved game.</figcaption></figure>
-          <figure class="phone"><a href="assets/ispy/app-camera.webp" data-lb="Student camera: one object, good light, big scan button"><img src="assets/ispy/app-camera.webp" alt="Student camera screen with a scan frame and a large Scan Object button" loading="lazy" width="560" height="1084"></a><figcaption><b>03 · Scan</b>A camera built for 5-year-olds: one object, one big button.</figcaption></figure>
-          <figure class="phone"><a href="assets/ispy/app-gallery.webp" data-lb="Gallery of detected objects with model confidence"><img src="assets/ispy/app-gallery.webp" alt="Gallery of scanned objects: Apple at 90 percent confidence, Watch at 71 percent" loading="lazy" width="560" height="1084"></a><figcaption><b>04 · Detect</b>Every scan is saved with the model's label and confidence.</figcaption></figure>
-          <figure class="phone"><a href="assets/ispy/app-activities.webp" data-lb="Learning activities built from scanned words"><img src="assets/ispy/app-activities.webp" alt="Learning activities: Identification, Match the Pairs, Build a Sentence, Spell It" loading="lazy" width="560" height="1084"></a><figcaption><b>05 · Practice</b>Four activities turn scanned objects into vocabulary drills.</figcaption></figure>
-          <figure class="phone"><a href="assets/ispy/app-progress.webp" data-lb="Student progress: learning score, words mastered, scans saved"><img src="assets/ispy/app-progress.webp" alt="My Progress screen showing an 89 percent learning score and word counts" loading="lazy" width="560" height="1084"></a><figcaption><b>06 · Progress</b>Scores teachers and parents can actually follow.</figcaption></figure>
-          <figure class="phone"><a href="assets/ispy/app-settings.webp" data-lb="Settings: student profile, offline sync center and teacher app lock"><img src="assets/ispy/app-settings.webp" alt="More screen with student profile, sync center for offline records, and a teacher-guided app lock" loading="lazy" width="560" height="1084"></a><figcaption><b>07 · Classroom</b>Offline sync and a teacher-controlled app lock.</figcaption></figure>
+          <figure class="phone"><a href="app-login.webp" data-lb="Role selection: teacher, parent or student"><img src="app-login.webp" alt="iSpy World start screen asking who is using the app: teacher or parent" loading="lazy" width="560" height="1084"></a><figcaption><b>01 · Start</b>Teachers, parents and students each get their own entry.</figcaption></figure>
+          <figure class="phone"><a href="app-home.webp" data-lb="Student dashboard: today's activity, average score and saved game"><img src="app-home.webp" alt="Student dashboard greeting Student 12, with today's activities, a 92 percent average score and a saved game" loading="lazy" width="560" height="1084"></a><figcaption><b>02 · Home</b>Today's progress and a one-tap way back into a saved game.</figcaption></figure>
+          <figure class="phone"><a href="app-camera.webp" data-lb="Student camera: one object, good light, big scan button"><img src="app-camera.webp" alt="Student camera screen with a scan frame and a large Scan Object button" loading="lazy" width="560" height="1084"></a><figcaption><b>03 · Scan</b>A camera built for 5-year-olds: one object, one big button.</figcaption></figure>
+          <figure class="phone"><a href="app-gallery.webp" data-lb="Gallery of detected objects with model confidence"><img src="app-gallery.webp" alt="Gallery of scanned objects: Apple at 90 percent confidence, Watch at 71 percent" loading="lazy" width="560" height="1084"></a><figcaption><b>04 · Detect</b>Every scan is saved with the model's label and confidence.</figcaption></figure>
+          <figure class="phone"><a href="app-activities.webp" data-lb="Learning activities built from scanned words"><img src="app-activities.webp" alt="Learning activities: Identification, Match the Pairs, Build a Sentence, Spell It" loading="lazy" width="560" height="1084"></a><figcaption><b>05 · Practice</b>Four activities turn scanned objects into vocabulary drills.</figcaption></figure>
+          <figure class="phone"><a href="app-progress.webp" data-lb="Student progress: learning score, words mastered, scans saved"><img src="app-progress.webp" alt="My Progress screen showing an 89 percent learning score and word counts" loading="lazy" width="560" height="1084"></a><figcaption><b>06 · Progress</b>Scores teachers and parents can actually follow.</figcaption></figure>
+          <figure class="phone"><a href="app-settings.webp" data-lb="Settings: student profile, offline sync center and teacher app lock"><img src="app-settings.webp" alt="More screen with student profile, sync center for offline records, and a teacher-guided app lock" loading="lazy" width="560" height="1084"></a><figcaption><b>07 · Classroom</b>Offline sync and a teacher-controlled app lock.</figcaption></figure>
         </div>
         <p class="scroll-hint" aria-hidden="true">← scroll · tap a screen to enlarge →</p>
       </div>
@@ -403,13 +403,13 @@ dialog.lb p { text-align: center; color: #D5DAE0; font-family: var(--font-mono);
       </div>
 
       <div class="portal">
-        <figure class="browser"><a href="assets/ispy/web-home.webp" data-lb="Web portal: public homepage"><img src="assets/ispy/web-home.webp" alt="iSpy World web portal homepage: Welcome to iSpy World, with a Download the App button" loading="lazy" width="1400" height="719"></a><figcaption>Web portal: the school's public home and app download.</figcaption></figure>
-        <figure class="browser"><a href="assets/ispy/web-announcements.webp" data-lb="Web portal: announcements"><img src="assets/ispy/web-announcements.webp" alt="Web portal announcements page with three school notices" loading="lazy" width="1400" height="715"></a><figcaption>Announcements, posted by the school from the admin side.</figcaption></figure>
+        <figure class="browser"><a href="web-home.webp" data-lb="Web portal: public homepage"><img src="web-home.webp" alt="iSpy World web portal homepage: Welcome to iSpy World, with a Download the App button" loading="lazy" width="1400" height="719"></a><figcaption>Web portal: the school's public home and app download.</figcaption></figure>
+        <figure class="browser"><a href="web-announcements.webp" data-lb="Web portal: announcements"><img src="web-announcements.webp" alt="Web portal announcements page with three school notices" loading="lazy" width="1400" height="715"></a><figcaption>Announcements, posted by the school from the admin side.</figcaption></figure>
       </div>
 
       <div class="extras">
-        <figure class="poster"><a href="assets/ispy/poster.webp" data-lb="iSpy World group poster"><img src="assets/ispy/poster-thumb.webp" alt="iSpy World group poster" loading="lazy" width="560" height="792"></a><figcaption>Group poster</figcaption></figure>
-        <figure class="poster"><a href="assets/ispy/research.webp" data-lb="iSpy World research poster"><img src="assets/ispy/research-thumb.webp" alt="iSpy World research poster" loading="lazy" width="560" height="792"></a><figcaption>Research poster</figcaption></figure>
+        <figure class="poster"><a href="poster.webp" data-lb="iSpy World group poster"><img src="poster-thumb.webp" alt="iSpy World group poster" loading="lazy" width="560" height="792"></a><figcaption>Group poster</figcaption></figure>
+        <figure class="poster"><a href="research.webp" data-lb="iSpy World research poster"><img src="research-thumb.webp" alt="iSpy World research poster" loading="lazy" width="560" height="792"></a><figcaption>Research poster</figcaption></figure>
         <div class="stack-block">
           <p class="eyebrow">Built with</p>
           <div class="chips"><span class="chip">YOLOv11n</span><span class="chip">Ultralytics</span><span class="chip">Python</span><span class="chip">Android</span><span class="chip">Laravel</span><span class="chip">Railway</span><span class="chip">Dataset annotation</span><span class="chip">Agile Scrum</span></div>
@@ -481,20 +481,20 @@ Booked/Resolved By: jfrancisco
     <p class="eyebrow">Credentials</p>
     <h2>8 certifications</h2>
     <div class="badges">
-      <a class="badge" href="https://www.credly.com/badges/3352ff16-d0fb-4f2a-80be-c74750287571/public_url" target="_blank" rel="noopener"><div class="tile"><img src="assets/badges/ccna-itn.webp" alt="" loading="lazy" width="240" height="240"></div><span>CCNA: Introduction to Networks</span></a>
-      <a class="badge" href="https://www.credly.com/badges/0a98e289-9ea5-4df8-aa78-bb196d08976d/public_url" target="_blank" rel="noopener"><div class="tile"><img src="assets/badges/ccst.webp" alt="" loading="lazy" width="240" height="240"></div><span>Cisco CCST Networking</span></a>
-      <a class="badge" href="https://www.credly.com/badges/6b98f707-2096-4fef-87cb-0eb80e09bc95/public_url" target="_blank" rel="noopener"><div class="tile"><img src="assets/badges/pmi.webp" alt="" loading="lazy" width="240" height="240"></div><span>PMI Project Management Ready</span></a>
-      <a class="badge" href="https://www.credly.com/badges/de1c3042-cf16-4aca-aa82-5222b00c32c5/public_url" target="_blank" rel="noopener"><div class="tile"><img src="assets/badges/python.webp" alt="" loading="lazy" width="240" height="240"></div><span>IT Specialist: Python</span></a>
+      <a class="badge" href="https://www.credly.com/badges/3352ff16-d0fb-4f2a-80be-c74750287571/public_url" target="_blank" rel="noopener"><div class="tile"><img src="ccna-itn.webp" alt="" loading="lazy" width="240" height="240"></div><span>CCNA: Introduction to Networks</span></a>
+      <a class="badge" href="https://www.credly.com/badges/0a98e289-9ea5-4df8-aa78-bb196d08976d/public_url" target="_blank" rel="noopener"><div class="tile"><img src="ccst.webp" alt="" loading="lazy" width="240" height="240"></div><span>Cisco CCST Networking</span></a>
+      <a class="badge" href="https://www.credly.com/badges/6b98f707-2096-4fef-87cb-0eb80e09bc95/public_url" target="_blank" rel="noopener"><div class="tile"><img src="pmi.webp" alt="" loading="lazy" width="240" height="240"></div><span>PMI Project Management Ready</span></a>
+      <a class="badge" href="https://www.credly.com/badges/de1c3042-cf16-4aca-aa82-5222b00c32c5/public_url" target="_blank" rel="noopener"><div class="tile"><img src="python.webp" alt="" loading="lazy" width="240" height="240"></div><span>IT Specialist: Python</span></a>
     </div>
 
     <div class="rows">
       <div class="row"><span>DevNet Associate<span class="by">Cisco</span></span><span class="proof"></span><span class="yr">2026</span></div>
-      <div class="row"><span>PMI Project Management Ready<span class="by">Project Management Institute</span></span><span class="proof"><a href="https://www.credly.com/badges/6b98f707-2096-4fef-87cb-0eb80e09bc95/public_url" target="_blank" rel="noopener">Credly ↗</a><a href="docs/cert-pmi.pdf" target="_blank" rel="noopener">PDF ↗</a></span><span class="yr">2026</span></div>
+      <div class="row"><span>PMI Project Management Ready<span class="by">Project Management Institute</span></span><span class="proof"><a href="https://www.credly.com/badges/6b98f707-2096-4fef-87cb-0eb80e09bc95/public_url" target="_blank" rel="noopener">Credly ↗</a><a href="cert-pmi.pdf" target="_blank" rel="noopener">PDF ↗</a></span><span class="yr">2026</span></div>
       <div class="row"><span>CCNA: Enterprise Networking, Security, and Automation<span class="by">Cisco</span></span><span class="proof"></span><span class="yr">2025</span></div>
       <div class="row"><span>CCNA: Introduction to Networks<span class="by">Cisco</span></span><span class="proof"><a href="https://www.credly.com/badges/3352ff16-d0fb-4f2a-80be-c74750287571/public_url" target="_blank" rel="noopener">Credly ↗</a></span><span class="yr">2025</span></div>
       <div class="row"><span>CCNA: Switching, Routing, and Wireless Essentials<span class="by">Cisco</span></span><span class="proof"></span><span class="yr">2025</span></div>
-      <div class="row"><span>Cisco Certified Support Technician Networking<span class="by">Cisco · lifetime</span></span><span class="proof"><a href="https://www.credly.com/badges/0a98e289-9ea5-4df8-aa78-bb196d08976d/public_url" target="_blank" rel="noopener">Credly ↗</a><a href="docs/cert-ccst.pdf" target="_blank" rel="noopener">PDF ↗</a></span><span class="yr">2025</span></div>
-      <div class="row"><span>Information Technology Specialist in Python<span class="by">Certiport</span></span><span class="proof"><a href="https://www.credly.com/badges/de1c3042-cf16-4aca-aa82-5222b00c32c5/public_url" target="_blank" rel="noopener">Credly ↗</a><a href="docs/cert-python.pdf" target="_blank" rel="noopener">PDF ↗</a></span><span class="yr">2025</span></div>
+      <div class="row"><span>Cisco Certified Support Technician Networking<span class="by">Cisco · lifetime</span></span><span class="proof"><a href="https://www.credly.com/badges/0a98e289-9ea5-4df8-aa78-bb196d08976d/public_url" target="_blank" rel="noopener">Credly ↗</a><a href="cert-ccst.pdf" target="_blank" rel="noopener">PDF ↗</a></span><span class="yr">2025</span></div>
+      <div class="row"><span>Information Technology Specialist in Python<span class="by">Certiport</span></span><span class="proof"><a href="https://www.credly.com/badges/de1c3042-cf16-4aca-aa82-5222b00c32c5/public_url" target="_blank" rel="noopener">Credly ↗</a><a href="cert-python.pdf" target="_blank" rel="noopener">PDF ↗</a></span><span class="yr">2025</span></div>
       <div class="row"><span>NDG Linux Essentials<span class="by">Cisco</span></span><span class="proof"></span><span class="yr">2025</span></div>
     </div>
 
@@ -503,11 +503,11 @@ Booked/Resolved By: jfrancisco
       <span class="mono muted" style="font-size:12px">tap a certificate to view it</span>
     </div>
     <div class="rows" style="margin-top:0">
-      <div class="row"><span>Cybersecurity in FinTech<span class="by">Appkademiya · online</span></span><span class="proof"><a href="assets/webinars/fintech.webp" data-lb="Certificate: Cybersecurity in FinTech">certificate</a></span><span class="yr">Oct 2026</span></div>
-      <div class="row"><span>TICaP 21: To the Future and Beyond<span class="by">FEU Institute of Technology · Zoom · appreciation</span></span><span class="proof"><a href="assets/webinars/ticap-zoom.webp" data-lb="Certificate of appreciation: TICaP 21">certificate</a></span><span class="yr">Oct 2026</span></div>
-      <div class="row"><span>TICaP 21: To the Future and Beyond<span class="by">FEU Institute of Technology · on-site · participant</span></span><span class="proof"><a href="assets/webinars/ticap-onsite.webp" data-lb="Certificate of participation: TICaP 21">certificate</a></span><span class="yr">Oct 2026</span></div>
-      <div class="row"><span>AI Agents: The Next Digital Workforce<span class="by">MV Consultancy · Google Meet</span></span><span class="proof"><a href="assets/webinars/ai-agents.webp" data-lb="Certificate: AI Agents, The Next Digital Workforce">certificate</a></span><span class="yr">Oct 2026</span></div>
-      <div class="row"><span>Generate, the Human Way<span class="by">Yap Studios · Google Meet</span></span><span class="proof"><a href="assets/webinars/human-way.webp" data-lb="Certificate: Generate, the Human Way">certificate</a></span><span class="yr">Sep 2026</span></div>
+      <div class="row"><span>Cybersecurity in FinTech<span class="by">Appkademiya · online</span></span><span class="proof"><a href="fintech.webp" data-lb="Certificate: Cybersecurity in FinTech">certificate</a></span><span class="yr">Oct 2026</span></div>
+      <div class="row"><span>TICaP 21: To the Future and Beyond<span class="by">FEU Institute of Technology · Zoom · appreciation</span></span><span class="proof"><a href="ticap-zoom.webp" data-lb="Certificate of appreciation: TICaP 21">certificate</a></span><span class="yr">Oct 2026</span></div>
+      <div class="row"><span>TICaP 21: To the Future and Beyond<span class="by">FEU Institute of Technology · on-site · participant</span></span><span class="proof"><a href="ticap-onsite.webp" data-lb="Certificate of participation: TICaP 21">certificate</a></span><span class="yr">Oct 2026</span></div>
+      <div class="row"><span>AI Agents: The Next Digital Workforce<span class="by">MV Consultancy · Google Meet</span></span><span class="proof"><a href="ai-agents.webp" data-lb="Certificate: AI Agents, The Next Digital Workforce">certificate</a></span><span class="yr">Oct 2026</span></div>
+      <div class="row"><span>Generate, the Human Way<span class="by">Yap Studios · Google Meet</span></span><span class="proof"><a href="human-way.webp" data-lb="Certificate: Generate, the Human Way">certificate</a></span><span class="yr">Sep 2026</span></div>
       <div class="row"><span>FEU Tech x OpenAI Campus Launch<span class="by">Participant</span></span><span class="proof"></span><span class="yr"></span></div>
       <div class="row"><span>Build Your Cloud Arsenal: A Deep Dive into GCP Compute Services<span class="by">Participant</span></span><span class="proof"></span><span class="yr"></span></div>
     </div>
@@ -523,7 +523,7 @@ Booked/Resolved By: jfrancisco
       <button class="copy" id="copyBtn" type="button">copy</button>
     </div>
     <div class="cta">
-      <a class="btn solid" href="docs/Francisco_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+      <a class="btn solid" href="Francisco_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
       <a class="btn ghost" href="https://www.linkedin.com/in/john-romar-francisco-433a5a287/" target="_blank" rel="noopener">LinkedIn ↗</a>
       <a class="btn ghost" href="https://github.com/romar-zaratan" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
