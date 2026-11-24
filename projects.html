@@ -115,7 +115,7 @@ footer { margin-top: 48px; border-top: 1px solid var(--line); padding-top: 22px;
   <div class="intro">
     <p class="label"><b>projects</b><span>mini · live</span></p>
     <h1>Small builds</h1>
-    <p class="lead">Short projects I build to practice one skill at a time: APIs, databases, login, and AI. Every one is live and its code is public.</p>
+    <p class="lead">Short projects I build to practice one skill at a time: APIs, databases, login, and AI. All the code is public, and most run right in your browser.</p>
   </div>
 
   <div class="grid">
@@ -160,13 +160,72 @@ footer { margin-top: 48px; border-top: 1px solid var(--line); padding-top: 22px;
       </div>
     </article>
 
+    <!-- ============ CARD: Gawi habit tracker (demo mode until Supabase is connected) ============ -->
+    <article class="card">
+      <a class="shot" href="https://romar-zaratan.github.io/habit-tracker/" target="_blank" rel="noopener" aria-label="Open Gawi Habit Tracker demo">
+        <img src="habits.webp" alt="Gawi habit tracker with four habits, daily check-ins, streaks and weekly progress" width="1200" height="750" loading="lazy">
+      </a>
+      <p class="meta">03 · Full stack · Demo mode</p>
+      <h2>Gawi Habit Tracker</h2>
+      <p class="desc">Daily check-ins, streaks and a 12-week heatmap. Try it instantly in demo mode.</p>
+      <ul>
+        <li>Full CRUD with validation, and optimistic updates that roll back if saving fails.</li>
+        <li>Database schema with Row Level Security, so each user only sees their own data.</li>
+        <li>One storage layer that switches between the browser (demo) and Supabase (accounts).</li>
+      </ul>
+      <div class="chips"><span class="chip">Supabase</span><span class="chip">Postgres + RLS</span><span class="chip">Auth</span><span class="chip">JavaScript</span></div>
+      <div class="links">
+        <a class="btn solid" href="https://romar-zaratan.github.io/habit-tracker/" target="_blank" rel="noopener">Try demo ↗</a>
+        <a class="btn ghost" href="https://github.com/romar-zaratan/habit-tracker" target="_blank" rel="noopener">Code ↗</a>
+      </div>
+    </article>
+
+    <!-- ============ CARD: Aral study tool (demo mode until the AI backend exists) ============ -->
+    <article class="card">
+      <a class="shot" href="https://romar-zaratan.github.io/ai-study-tool/" target="_blank" rel="noopener" aria-label="Open Aral Study Tool demo">
+        <img src="study.webp" alt="Aral study tool showing a flashcard made from notes about object detection" width="1200" height="750" loading="lazy">
+      </a>
+      <p class="meta">04 · AI tool · Demo mode</p>
+      <h2>Aral Study Tool</h2>
+      <p class="desc">Turns your notes into a summary, flashcards, a practice quiz and key terms.</p>
+      <ul>
+        <li>Flip-card flashcards with keyboard controls, and a quiz with instant feedback and scoring.</li>
+        <li>Built for an AI backend that keeps the API key on the server, never in the browser.</li>
+        <li>Demo mode uses an offline text-ranking method and says clearly that it is not AI.</li>
+      </ul>
+      <div class="chips"><span class="chip">JavaScript</span><span class="chip">API design</span><span class="chip">LLM-ready</span><span class="chip">Accessibility</span></div>
+      <div class="links">
+        <a class="btn solid" href="https://romar-zaratan.github.io/ai-study-tool/" target="_blank" rel="noopener">Try demo ↗</a>
+        <a class="btn ghost" href="https://github.com/romar-zaratan/ai-study-tool" target="_blank" rel="noopener">Code ↗</a>
+      </div>
+    </article>
+
+    <!-- ============ CARD: Ikli URL shortener (Laravel, code only until deployed on Railway) ============ -->
+    <article class="card">
+      <a class="shot" href="https://github.com/romar-zaratan/url-shortener" target="_blank" rel="noopener" aria-label="Open Ikli URL Shortener code">
+        <img src="shortener.webp" alt="Ikli stats page for a short link: 156 total clicks and a bar chart of clicks per day" width="1200" height="750" loading="lazy">
+      </a>
+      <p class="meta">05 · Laravel · Code + tests</p>
+      <h2>Ikli URL Shortener</h2>
+      <p class="desc">Short links with custom names, click counting and a stats page for each link.</p>
+      <ul>
+        <li>Validation for safe links only, reserved names, duplicates and redirect loops.</li>
+        <li>Click tracking in a database transaction, a daily chart, and top referrers.</li>
+        <li>Rate limiting and 12 automated feature tests. Not hosted yet; the code is public.</li>
+      </ul>
+      <div class="chips"><span class="chip">Laravel 12</span><span class="chip">PHP</span><span class="chip">SQL</span><span class="chip">PHPUnit</span></div>
+      <div class="links">
+        <a class="btn solid" href="https://github.com/romar-zaratan/url-shortener" target="_blank" rel="noopener">Code ↗</a>
+      </div>
+    </article>
+
     <!--
     ============ CARD TEMPLATE: copy everything between the lines, paste it above this comment, then edit ============
     <article class="card">
       <a class="shot" href="LIVE-LINK" target="_blank" rel="noopener" aria-label="Open PROJECT NAME live">
         <img src="SCREENSHOT.webp" alt="DESCRIBE THE SCREENSHOT" width="1200" height="750" loading="lazy">
       </a>
-      <p class="meta">03 · TYPE · MONTH YEAR</p>
+      <p class="meta">06 · TYPE · MONTH YEAR</p>
       <h2>PROJECT NAME</h2>
       <p class="desc">ONE SENTENCE: what it is.</p>
       <ul>
@@ -186,7 +245,7 @@ footer { margin-top: 48px; border-top: 1px solid var(--line); padding-top: 22px;
   </div>
 
   <div class="more">
-    <p>More on the way. Next up: a habit tracker with login, an AI study tool, and a URL shortener.</p>
+    <p>Coming next: real accounts for Gawi, AI mode for Aral, and Ikli hosted live.</p>
     <a class="btn ghost" href="https://github.com/romar-zaratan" target="_blank" rel="noopener">GitHub ↗</a>
   </div>
 
