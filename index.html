@@ -82,12 +82,26 @@ p { margin: 0; }
 .pill:hover { color: var(--fg); border-color: var(--muted); }
 
 /* ---------- detection primitives ---------- */
-.box { position: absolute; border: 2px solid var(--accent); pointer-events: none; }
-.box > i {
-  position: absolute; left: -2px; bottom: 100%; font-style: normal; white-space: nowrap;
+/* corner brackets only (camera focus frame), so the photo stays visible inside the box */
+.box {
+  position: absolute; pointer-events: none; --c: var(--accent); --l: 16px; --t: 2px;
+  background:
+    linear-gradient(var(--c), var(--c)) left top / var(--l) var(--t),
+    linear-gradient(var(--c), var(--c)) left top / var(--t) var(--l),
+    linear-gradient(var(--c), var(--c)) right top / var(--l) var(--t),
+    linear-gradient(var(--c), var(--c)) right top / var(--t) var(--l),
+    linear-gradient(var(--c), var(--c)) left bottom / var(--l) var(--t),
+    linear-gradient(var(--c), var(--c)) left bottom / var(--t) var(--l),
+    linear-gradient(var(--c), var(--c)) right bottom / var(--l) var(--t),
+    linear-gradient(var(--c), var(--c)) right bottom / var(--t) var(--l);
+  background-repeat: no-repeat;
+}
+.box.sm { --l: 10px; }
+.tag {
+  position: absolute; font-style: normal; white-space: nowrap; pointer-events: none;
   background: var(--accent); color: var(--on-accent); font-family: var(--font-mono); font-size: 11px; line-height: 1; padding: 4px 6px;
 }
-.box.in > i { bottom: auto; top: 0; left: 0; }
+.leader { position: absolute; height: 1px; background: var(--accent); pointer-events: none; }
 .label { display: inline-flex; align-items: stretch; font-family: var(--font-mono); font-size: 12px; line-height: 1; margin: 0 0 18px; }
 .label b { font-weight: 500; background: var(--accent); color: var(--on-accent); padding: 5px 8px; }
 .label span { border: 1px solid var(--accent); border-left: 0; color: var(--accent); padding: 4px 8px; }
@@ -106,21 +120,38 @@ h1 { margin: 0; font-size: clamp(2.5rem, 7vw, 4.6rem); line-height: .98; letter-
 .btn.solid:hover { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 .btn.ghost:hover { border-color: var(--accent); color: var(--accent); }
 
-.frame { position: relative; margin: 26px 0 0; aspect-ratio: 1 / 1; }
+.frame { position: relative; margin: 30px 0 0; aspect-ratio: 1 / 1; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.frame:focus-visible { outline-offset: 6px; }
 .frame .pic { position: absolute; inset: 0; background: var(--backdrop); overflow: hidden; }
 .frame .pic img { width: 100%; height: 100%; object-fit: cover; }
 .frame .scan {
   position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--accent);
   box-shadow: 0 0 18px 4px color-mix(in srgb, var(--accent) 55%, transparent); opacity: 0;
 }
+/* person: brackets span the photo, label sits above it */
+.frame .b1 { left: 20%; top: 0; width: 62%; height: 100%; }
+.frame .t1 { left: 20%; bottom: 100%; }
+/* small objects: labels sit outside the photo on the left, joined by a leader line */
+.frame .b2 { left: 31%; top: 39%; width: 43%; height: 17%; }
+.frame .b3 { left: 34%; top: 78%; width: 36%; height: 21%; }
+.frame .t2, .frame .t3 { right: calc(100% + 14px); margin-top: -9.5px; }
+.frame .t2 { top: 47.5%; } .frame .t3 { top: 88%; }
+.frame .l2 { left: -14px; width: calc(31% + 14px); top: 47.5%; }
+.frame .l3 { left: -14px; width: calc(34% + 14px); top: 88%; }
+.frame .det { opacity: 0; }
 .frame .caption { position: absolute; left: 0; right: 0; top: calc(100% + 10px); font-family: var(--font-mono); font-size: 11px; color: var(--muted); display: flex; justify-content: space-between; }
-@media (prefers-reduced-motion: no-preference) {
-  .frame .scan { animation: sweep 1.6s .2s ease-in-out 1 both; }
-  .frame .box { animation: pop .35s ease-out both; }
-  .frame .b1 { animation-delay: 1.1s; } .frame .b2 { animation-delay: 1.45s; } .frame .b3 { animation-delay: 1.8s; }
-}
+
+/* one run: scan sweeps, detections appear, hold, then fade so the photo is clean at rest */
+.frame.play .scan { animation: sweep 1.4s .1s ease-in-out 1 both; }
+.frame.play .det { animation: hold 4.4s ease-out both; }
+.frame.play .d1 { animation-delay: .9s; } .frame.play .d2 { animation-delay: 1.2s; } .frame.play .d3 { animation-delay: 1.5s; }
 @keyframes sweep { 0% { top: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
-@keyframes pop { from { opacity: 0; transform: scale(1.06); } to { opacity: 1; transform: none; } }
+@keyframes hold { 0% { opacity: 0; transform: scale(1.04); } 7% { opacity: 1; transform: none; } 78% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes holdStill { 0%, 85% { opacity: 1; } 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .frame.play .scan { animation: none; }
+  .frame.play .det { animation-name: holdStill; animation-delay: 0s; }
+}
 
 /* ---------- sections ---------- */
 section { padding: 88px 0; border-top: 1px solid var(--line); }
@@ -255,6 +286,7 @@ dialog.lb p { text-align: center; color: #D5DAE0; font-family: var(--font-mono);
 @media (max-width: 860px) {
   .hero { grid-template-columns: minmax(0, 1fr); gap: 40px; padding: 48px 0 72px; }
   .hero .frame-col { order: -1; width: min(260px, 70%); }
+  .frame .d2, .frame .d3 { display: none; }
   .story { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   .loop ol { grid-template-columns: minmax(0, 1fr); }
   .loop li + li { border-left: 0; border-top: 1px solid var(--line); }
@@ -321,13 +353,15 @@ dialog.lb p { text-align: center; color: #D5DAE0; font-family: var(--font-mono);
       </div>
     </div>
     <div class="frame-col">
-      <figure class="frame" aria-label="Portrait of John Romar Francisco, annotated like an object-detection result">
+      <figure class="frame" id="frame" tabindex="0" role="button" aria-label="Portrait of John Romar Francisco. Activate to replay the object-detection scan.">
         <div class="pic"><img src="photo.webp" alt="Portrait of John Romar Francisco" width="800" height="800" fetchpriority="high"></div>
         <div class="scan" aria-hidden="true"></div>
-        <div class="box b1" style="left:20%;top:5%;width:62%;height:94%" aria-hidden="true"><i>person 0.98</i></div>
-        <div class="box b2 in" style="left:31%;top:39%;width:43%;height:17%" aria-hidden="true"><i>glasses 0.94</i></div>
-        <div class="box b3 in" style="left:34%;top:78%;width:36%;height:21%" aria-hidden="true"><i>feu_tech_lanyard 0.88</i></div>
-        <figcaption class="caption" aria-hidden="true"><span>3 objects detected</span><span>conf ≥ 0.85</span></figcaption>
+        <div aria-hidden="true">
+          <div class="det d1 box b1"></div><span class="det d1 tag t1">person 0.98</span>
+          <div class="det d2 box sm b2"></div><span class="det d2 leader l2"></span><span class="det d2 tag t2">glasses 0.94</span>
+          <div class="det d3 box sm b3"></div><span class="det d3 leader l3"></span><span class="det d3 tag t3">lanyard 0.88</span>
+        </div>
+        <figcaption class="caption" aria-hidden="true"><span>↻ tap to scan</span><span>conf ≥ 0.85</span></figcaption>
       </figure>
     </div>
   </div>
@@ -559,6 +593,21 @@ Booked/Resolved By: jfrancisco
     label();
   });
 
+  /* hero scan: plays once on load, replays on hover, tap or Enter */
+  var frame = document.getElementById('frame'), busy = false;
+  function scan() {
+    if (busy) return;
+    busy = true;
+    frame.classList.remove('play');
+    void frame.offsetWidth;
+    frame.classList.add('play');
+    setTimeout(function () { busy = false; }, 6000);
+  }
+  scan();
+  frame.addEventListener('mouseenter', scan);
+  frame.addEventListener('click', scan);
+  frame.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); scan(); } });
+
   /* lightbox: links keep working as plain links without JS or <dialog> support */
   var lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'), lbCap = document.getElementById('lbCap');
   if (lb && typeof lb.showModal === 'function') {
@@ -589,7 +638,9 @@ Booked/Resolved By: jfrancisco
         var a = map[e.target.id];
         if (a) {
           a.classList.add('on');
-          if (nav.scrollWidth > nav.clientWidth) nav.scrollTo({ left: Math.max(0, a.offsetLeft - 16), behavior: 'smooth' });
+          /* only scroll the nav strip when the active link is actually out of view */
+          var r = a.getBoundingClientRect(), n = nav.getBoundingClientRect();
+          if (r.left < n.left || r.right > n.right) nav.scrollBy({ left: r.left - n.left - 4, behavior: 'smooth' });
         }
       });
     }, { rootMargin: '-40% 0px -55% 0px' });
