@@ -230,6 +230,14 @@ h3 { margin: 0; font-size: 1.15rem; font-weight: 650; letter-spacing: -.01em; li
 .term pre { margin: 0; padding: 16px 18px 0; overflow-x: auto; font: inherit; }
 .t-y { color: #F2CC4B; } .t-o { color: #FF9A3C; } .t-r { color: #FF5F56; } .t-g { color: #6B7682; } .t-w { color: #FFFFFF; }
 
+/* link to projects.html */
+.more-link { margin-top: 80px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 24px; border: 1.5px solid var(--fg); border-radius: 4px; text-decoration: none; transition: background .15s, color .15s, border-color .15s; }
+.more-link .eyebrow { display: block; margin: 0 0 2px; }
+.more-link b { font-size: clamp(1.1rem, 2.6vw, 1.4rem); letter-spacing: -.015em; font-weight: 700; }
+.more-arrow { font-size: 1.8rem; line-height: 1; transition: transform .2s; }
+.more-link:hover { border-color: var(--accent); background: var(--accent-soft); }
+.more-link:hover .more-arrow { transform: translateX(4px); color: var(--accent); }
+
 /* ---------- about ---------- */
 .about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 56px; }
 .about .intro { font-size: 1.12rem; line-height: 1.6; text-wrap: pretty; }
@@ -482,6 +490,11 @@ Booked/Resolved By: jfrancisco
 <span class="t-g">  --------------------------------------</span></pre>
       </div>
     </article>
+
+    <a class="more-link" href="projects.html">
+      <span class="more-text"><span class="eyebrow">Mini projects</span><b>Smaller builds: APIs, dashboards and tools</b></span>
+      <span class="more-arrow" aria-hidden="true">→</span>
+    </a>
   </section>
 
   <!-- ================= ABOUT ================= -->
